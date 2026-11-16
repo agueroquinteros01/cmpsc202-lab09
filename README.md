@@ -2,7 +2,7 @@
 
 **Instructions:** Work in small groups to complete the following exercises. Try sketching out your work on the whiteboards or scratch paper. Everyone should submit their own answers to the exercises, but you are encouraged to discuss your reasoning with your group members.
 
-Name(s): ___________________________
+Name(s): Benito Aguero
 
 ---
 
@@ -30,8 +30,20 @@ Procedure Mystery(A, n)
 ### Part A: The Recurrence Relation
 Let $T(n)$ be the running time of `Mystery` on an input of size $n$. Write down a recurrence relation for the worst-case running time $T(n)$. You may assume $n$ is a power of 3 for simplicity. *(Note: You do not need to solve the recurrence relation yet, just formulate it).*
 
+answer:
+
+```text
+T(n)=T(n/3)+T(2n/3)+\Theta(n), \quad T(1)=\Theta(1)
+```
+
+The two recursive calls handle (n/3) and (2n/3) elements, and the loop does linear work.
+
 ### Part B: Visualizing Algorithm Behavior
 Without solving the recurrence, look closely at the recursive calls and the combine step. If you were to draw the recursion tree for this algorithm, what would it look like? Is the tree balanced or skewed? 
+
+answer:
+
+Each node has two children, but the children have different sizes: one gets about a third of the input and the other gets about two-thirds. So the tree is skewed: paths following the larger child are deeper than paths following the smaller child. It’s still a branching tree, not just a single chain.
 
 ---
 
@@ -54,14 +66,23 @@ Analyze the running time of the algorithm by unrolling the recursion tree. Speci
 
 **Bonus!** Find a general formula for the total work done at level $i$ of the recursion tree.
 
+answer:
+
+At level (i), there are (3^i) calls, each with input size (n/2^i). Each call does (c(n/2^i)^2) non-recursive work.
+
+1. Root, level 0: (cn^2)
+2. Level 1: (3c(n/2)^2=\frac(3)(4)cn^2)
+3. Level 2: (9c(n/4)^2=\frac(9)(16)cn^2)
+4. Height: The input size at level (i) is (n/2^i). Setting that equal to 1 gives (i=\log_2 n), assuming (n) is a power of 2.
+
 ---
 
 ## Exercise 3: Reflection
 
 1. During lecture last week, we looked at two different divide-and-conquer algorithms. What were these algorithms and what problems did they solve?
 
-
-
-
+We discussed merge sort, which sorts a list, and the closest-pair-of-points algorithm, which finds the two points that are closest together.
 
 2. How do the algorithms you analyzed in this lab compare to the ones we discussed in lecture? Specifically, each algorithm differs from the two we discussed in lecture in one important way. For each of the algorithms above, what is that difference?
+
+Excercise 1 differ from merge sort because it splits the input into uneven parts ((n/3) and (2n/3)), while merge sort splits it roughly in half. The algorithm in Exercise 2 differs because it makes three recursive calls on half-sized inputs and does quadratic work outside the calls; merge sort makes two recursive calls and does linear work merging the halves
